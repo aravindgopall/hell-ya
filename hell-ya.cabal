@@ -25,7 +25,8 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Kubernetes
+      Kubernetes.Types
   other-modules:
       Paths_hell_ya
   hs-source-dirs:

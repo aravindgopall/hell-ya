@@ -1,5 +1,3 @@
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE OverloadedStrings #-}
 module Main (main) where
 
@@ -9,30 +7,9 @@ import Data.List (find, sort)
 import qualified Data.Text  as DT
 import qualified Data.Vector as Vec
 import qualified Data.Aeson.KeyMap as KM
-import GHC.Generics
 
 
-data DeployFile = DeployFile
-  { apiVersion :: Maybe DT.Text
-  , spec       :: Spec
-  }
-  deriving (Generic, Show, ToJSON, FromJSON)
-
-data Spec = Spec
-  { containers :: [Container]
-  }
-  deriving (Generic, Show, ToJSON, FromJSON)
-
-data Container = Container
-  { env :: [Env]
-  }
-  deriving (Generic, Show, ToJSON, FromJSON)
-
-data Env = Env
-  { name :: DT.Text
-  , value :: Value
-  }
-  deriving (Generic, Show, ToJSON, FromJSON)
+import Kubernetes
 
 ------
 getFile :: IO DeployFile
@@ -86,5 +63,3 @@ main = do
   val1 <- getFile
   val2 <- getFile
   print =<< diffEnvs (env $ head $ containers $ spec $ val1) (env $ head $ containers $ spec val2)
-  putStrLn "here output: )"
-  print val1
