@@ -32,6 +32,8 @@ diffEnvs env1s env2s = do
                 else return ((name b, v) : acc)
         ) [] env1s
   where
+    -- TODO: print the values in case of value mismatch
+    -- and types in case of type mismatch
     check (Env n v) =
       case find (\(Env n1 _) -> n == n1) env2s of
         Just (Env _ v1) -> if typeCheck v v1
